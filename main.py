@@ -3,8 +3,8 @@ from fastapi import FastAPI, HTTPException
 app = FastAPI()
 
 # "בזיכרון נתונים" מסד
-books = []
-counter = 1
+
+counter = 5
 
 @app.get("/books")
 def get_books():
@@ -23,7 +23,8 @@ def add_book(book: dict):
     new_book = {
         "id": counter,
         "title": book.get("title"),
-        "author": book.get("author")
+        "author": book.get("author"),
+        "year": book.get("year")
     }
     books.append(new_book)
     counter += 1
@@ -36,3 +37,32 @@ def delete_book(book_id: int):
             books.remove(book)
             return {"message": "Book deleted"}
     raise HTTPException(status_code=404, detail="Book not found")
+
+
+
+books = [
+    {
+        "id": 1,
+        "title": "Harry Potter and the Philosopher's Stone",
+        "author": "J.K. Rowling",
+        "year" : 1997
+    },
+    {
+        "id": 2,
+        "title": "The Hobbit",
+        "author": "J.R.R. Tolkien",
+        "year" : 1937
+    },
+    {
+        "id": 3,
+        "title": "1984",
+        "author": "George Orwell",
+        "year" : 1949
+    },
+    {
+        "id": 4,
+        "title": "The Alchemist",
+        "author": "Paulo Coelho",
+        "year" : 1988
+    }
+]
